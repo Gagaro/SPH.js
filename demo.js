@@ -1,7 +1,10 @@
 var PARTICLE_SIZE = 10;  // In pixels
+var MOVE_SPEED = 100;  // Update every second
 
 var c;
 var ctx;
+var running = false;
+var last_update = 0;
 
 var draw_particles = function() {
   var size = PARTICLE_SIZE / 2;
@@ -23,6 +26,13 @@ var draw_particles = function() {
     ctx.fill();
   })
 
+  if (running) {
+	  var now = Date.now();
+	  if (now - last_update > MOVE_SPEED) {
+		  last_update = now;
+		  sph.move();
+	  }
+  }
   window.requestAnimationFrame(draw_particles);
 };
 
